@@ -5,7 +5,7 @@ WORKDIR /app
 # 1. نسخ ملفات الإعداد الأساسية من الجذر
 COPY package.json pnpm-lock.yaml* pnpm-workspace.yaml tsconfig.base.json ./
 
-# 2. نسخ ملفات package.json الخاصة بكل حزمة (لتسريع الكاش)
+# 2. نسخ ملفات package.json الخاصة بكل حزمة (هذا هو الحل)
 COPY packages/core/package.json ./packages/core/
 COPY packages/persistence/package.json ./packages/persistence/
 COPY packages/llm/package.json ./packages/llm/
@@ -13,7 +13,7 @@ COPY packages/gamification/package.json ./packages/gamification/
 COPY packages/assessment/package.json ./packages/assessment/
 COPY apps/api/package.json ./apps/api/
 
-# 3. تثبيت الحزم من الجذر (هذا ما يحل مشكلة workspace)
+# 3. تثبيت الحزم من الجذر (الآن سيتعرف على كل الحزم)
 RUN pnpm install --no-frozen-lockfile
 
 # 4. نسخ باقي الأكواد
