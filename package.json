@@ -1,0 +1,25 @@
+{
+  "name": "moulinex",
+  "version": "2.0.0",
+  "private": true,
+  "packageManager": "pnpm@9.12.0",
+  "scripts": {
+    "dev": "pnpm -r --parallel dev",
+    "dev:api": "pnpm --filter @moulinex/api dev",
+    "dev:web": "pnpm --filter @moulinex/web dev",
+    "dev:bot": "cd apps/telegram-bot && python -m src.main",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "seed": "pnpm --filter @moulinex/persistence seed",
+    "db:generate": "pnpm --filter @moulinex/persistence db:generate",
+    "db:migrate": "pnpm --filter @moulinex/persistence db:migrate",
+    "db:studio": "pnpm --filter @moulinex/persistence db:studio"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.0",
+    "typescript": "^5.6.0"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}
