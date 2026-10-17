@@ -1,0 +1,9 @@
+{
+  "name": "@moulinex/assessment",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/engine.ts",
+  "types": "src/engine.ts",
+  "dependencies": { "zod": "^3.23.0" },
+  "devDependencies": { "typescript": "^5.6.0" }
+}
