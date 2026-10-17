@@ -1,0 +1,57 @@
+export const QUIZ_BANK: Record<string, any[]> = {
+  variables: [
+    {
+      id: "v1",
+      kind: "mcq",
+      conceptId: "variables",
+      difficulty: 1,
+      weight: 1,
+      prompt: "ما الفرق بين let و const؟",
+      choices: [
+        "لا فرق",
+        "const لا يمكن إعادة تعيينها",
+        "let أسرع",
+        "const أبطأ",
+      ],
+      answer: "const لا يمكن إعادة تعيينها",
+      explanation: "const تمنع إعادة التعيين.",
+    },
+    {
+      id: "v2",
+      kind: "predict-output",
+      conceptId: "variables",
+      difficulty: 2,
+      weight: 1,
+      prompt: "ماذا يُطبع؟ let x = 5; x = x + 3; console.log(x);",
+      choices: ["5", "8", "3", "خطأ"],
+      answer: "8",
+      explanation: "x = 8.",
+    },
+  ],
+  functions: [
+    {
+      id: "f1",
+      kind: "mcq",
+      conceptId: "functions",
+      difficulty: 1,
+      weight: 1,
+      prompt: "ما تُرجعه دالة بدون return؟",
+      choices: ["0", "null", "undefined", "خطأ"],
+      answer: "undefined",
+      explanation: "undefined افتراضياً.",
+    },
+  ],
+  loops: [
+    {
+      id: "l1",
+      kind: "predict-output",
+      conceptId: "loops",
+      difficulty: 1,
+      weight: 1,
+      prompt: "كم مرة تُطبع 'hi'؟ for i in range(3): print('hi')",
+      choices: ["2", "3", "4", "لا نهائي"],
+      answer: "3",
+      explanation: "range(3) = 0,1,2.",
+    },
+  ],
+};
