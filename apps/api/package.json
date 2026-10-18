@@ -16,7 +16,6 @@
     "@moulinex/persistence": "workspace:*",
     "@moulinex/gamification": "workspace:*",
     "@moulinex/assessment": "workspace:*",
-    "@moulinex/llm": "workspace:*",
     "@trpc/server": "^11.0.0",
     "ai": "^4.0.0",
     "hono": "^4.6.0",
