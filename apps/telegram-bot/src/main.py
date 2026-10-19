@@ -2,6 +2,7 @@ import asyncio
 import logging
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
+from aiogram.client.session.aiohttp import AiohttpSession
 from aiogram.enums import ParseMode
 from aiogram.types import BotCommand
 from aiogram.fsm.storage.memory import MemoryStorage
@@ -14,9 +15,14 @@ from .services.api_client import api
 
 async def main():
     logging.basicConfig(level=logging.INFO)
+    
+    # إعداد الوسيط (Cloudflare Worker)
+    session = AiohttpSession(api="https://telegrambot.fadifaisal53.workers.dev")
+    
     bot = Bot(
         token=settings.BOT_TOKEN,
         default=DefaultBotProperties(parse_mode=ParseMode.HTML),
+        session=session,
     )
     dp = Dispatcher(storage=MemoryStorage())
 
