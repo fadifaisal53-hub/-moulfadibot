@@ -1,26 +1,12 @@
-FROM node:22-alpine
-RUN corepack enable && corepack prepare pnpm@9.12.0 --activate
+FROM python:3.12-slim
 WORKDIR /app
 
-# 1. نسخ ملفات الإعداد الأساسية من الجذر
-COPY package.json pnpm-lock.yaml* pnpm-workspace.yaml tsconfig.base.json ./
+# تثبيت الحزم المطلوبة للبوت
+RUN pip install --no-cache-dir aiogram pydantic-settings httpx redis structlog
 
-# 2. نسخ ملفات package.json الخاصة بكل حزمة (هذا هو الحل)
-COPY packages/core/package.json ./packages/core/
-COPY packages/persistence/package.json ./packages/persistence/
-COPY packages/llm/package.json ./packages/llm/
-COPY packages/gamification/package.json ./packages/gamification/
-COPY packages/assessment/package.json ./packages/assessment/
-COPY apps/api/package.json ./apps/api/
+# نسخ ملفات البوت
+COPY apps/telegram-bot/src ./src
+COPY apps/telegram-bot/pyproject.toml ./
 
-# 3. تثبيت الحزم من الجذر (الآن سيتعرف على كل الحزم)
-RUN pnpm install --no-frozen-lockfile
-
-# 4. نسخ باقي الأكواد
-COPY packages ./packages
-COPY apps/api ./apps/api
-
-EXPOSE 3001
-
-# 5. تشغيل API
-CMD ["pnpm", "--filter", "@moulinex/api", "start"]
+# تشغيل البوت
+CMD ["python", "-m", "src.main"]
