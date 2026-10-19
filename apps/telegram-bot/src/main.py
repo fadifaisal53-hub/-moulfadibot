@@ -16,7 +16,7 @@ from .services.api_client import api
 async def main():
     logging.basicConfig(level=logging.INFO)
     
-    # إعداد الوسيط (Cloudflare Worker)
+    # إعداد الوسيط (Cloudflare Worker) لتجاوز حظر IP
     session = AiohttpSession(api="https://telegrambot.fadifaisal53.workers.dev")
     
     bot = Bot(
@@ -26,7 +26,10 @@ async def main():
     )
     dp = Dispatcher(storage=MemoryStorage())
 
+    # ربط قاعدة البيانات
     dp.update.outer_middleware(DatabaseMiddleware())
+    
+    # تفعيل الأوامر
     dp.include_routers(
         start.router,
         lessons.router,
@@ -36,6 +39,7 @@ async def main():
         settings_router.router,
     )
 
+    # إعداد قائمة الأوامر في تيليجرام (تم إصلاح الخطأ هنا)
     await bot.set_my_commands([
         BotCommand(command="start", description="البداية"),
         BotCommand(command="lessons", description="الدروس"),
