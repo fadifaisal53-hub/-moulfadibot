@@ -3,6 +3,7 @@ import logging
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.client.session.aiohttp import AiohttpSession
+from aiogram.client.telegram import TelegramAPIServer
 from aiogram.enums import ParseMode
 from aiogram.types import BotCommand
 from aiogram.fsm.storage.memory import MemoryStorage
@@ -16,8 +17,12 @@ from .services.api_client import api
 async def main():
     logging.basicConfig(level=logging.INFO)
     
-    # إعداد الوسيط (Cloudflare Worker) لتجاوز حظر IP
-    session = AiohttpSession(api="https://telegrambot.fadifaisal53.workers.dev")
+    # 1. نقوم بتغليف الرابط باستخدام TelegramAPIServer (هذا هو الإصلاح)
+    # ملاحظة: الرابط الخاص بك هو https://telegrambot.fadifaisal53.workers.dev
+    api_server = TelegramAPIServer.from_base("https://telegrambot.fadifaisal53.workers.dev")
+    
+    # 2. نمرر الكائن الجديد إلى الجلسة
+    session = AiohttpSession(api=api_server)
     
     bot = Bot(
         token=settings.BOT_TOKEN,
@@ -39,7 +44,7 @@ async def main():
         settings_router.router,
     )
 
-    # إعداد قائمة الأوامر في تيليجرام (تم إصلاح الخطأ هنا)
+    # إعداد قائمة الأوامر في تيليجرام
     await bot.set_my_commands([
         BotCommand(command="start", description="البداية"),
         BotCommand(command="lessons", description="الدروس"),
